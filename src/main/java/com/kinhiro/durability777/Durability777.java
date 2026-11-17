@@ -32,7 +32,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.util.Lazy;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 
 @Mod(Durability777.NAMESPACE)
@@ -44,8 +43,8 @@ public final class Durability777 {
     public static final ModConfigSpec CONFIG_SPEC;
     public static final Lazy<KeyMapping> KEY_MAPPING = Lazy.of(() -> new KeyMapping(
         "key." + NAMESPACE + ".cycle_unit_system",
-        InputConstants.Type.KEYSYM,
-        GLFW.GLFW_KEY_F7,
+        InputConstants.Type.KEYBOARD,
+        InputConstants.KEY_F7,
         KeyMapping.Category.DEBUG
     ));
 

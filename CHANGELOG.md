@@ -18,6 +18,7 @@
 - Fixed unit system toggle messages displaying the previous unit system name instead of the new one.
 - Fixed a compilation issue caused by some unexpectedly missing annotations.
 - Fixed a game startup crash caused by some unexpected changes to mod metadata.
+- Fixed key mapping registration for Minecraft 26.3 compatibility.
 
 ## [1.0.0] - 2026-11-16
 
