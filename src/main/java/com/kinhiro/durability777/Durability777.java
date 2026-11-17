@@ -43,7 +43,7 @@ public final class Durability777 {
     public static final DurabilityConfig CONFIG;
     public static final ModConfigSpec CONFIG_SPEC;
     public static final Lazy<KeyMapping> KEY_MAPPING = Lazy.of(() -> new KeyMapping(
-        "key." + NAMESPACE + ".toggle_unit_system",
+        "key." + NAMESPACE + ".cycle_unit_system",
         InputConstants.Type.KEYSYM,
         GLFW.GLFW_KEY_F7,
         KeyMapping.Category.DEBUG

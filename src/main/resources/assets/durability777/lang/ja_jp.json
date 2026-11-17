@@ -1,0 +1,8 @@
+{
+    "key.durability777.cycle_unit_system": "単位系を順番に切り替える",
+    "message.durability777.switch_unit_system": "切り替え先の単位系",
+    "unit_system.durability777.chinese_myriad": "中国の万進法",
+    "unit_system.durability777.metric_prefix": "SI接頭語",
+    "unit_system.durability777.percentage": "パーセント",
+    "unit_system.durability777.short_scale": "ショートスケール"
+}

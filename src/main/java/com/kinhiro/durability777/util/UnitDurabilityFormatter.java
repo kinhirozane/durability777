@@ -23,9 +23,8 @@
  */
 package com.kinhiro.durability777.util;
 
-import com.kinhiro.durability777.Durability777;
 import com.kinhiro.durability777.DurabilityConfig;
-import com.kinhiro.durability777.util.unit.NumericalUnit;
+import com.kinhiro.durability777.util.unit.UnitSystem;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -51,12 +50,11 @@ public final class UnitDurabilityFormatter {
         formatter.setDecimalFormatSymbols(symbols);
     }
 
-    public String format(final BigDecimal damage) {
-        final var unitSystem = Durability777.CONFIG.unitSystem.get();
+    public String format(final BigDecimal damage, final UnitSystem unitSystem) {
         for (final var unit : unitSystem.units())
             if (damage.compareTo(unit.size()) >= 0) return unit.format(damage, formatter);
 
-        return NumericalUnit.DEFUALT.format(damage, formatter);
+        return unitSystem.fallback().format(damage, formatter);
     }
 
     private String pattern(final int points) {

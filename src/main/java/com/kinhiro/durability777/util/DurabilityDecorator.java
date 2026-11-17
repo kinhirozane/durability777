@@ -24,6 +24,7 @@
 package com.kinhiro.durability777.util;
 
 import com.kinhiro.durability777.Durability777;
+import com.kinhiro.durability777.util.unit.UnitSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -34,6 +35,7 @@ import net.neoforged.neoforge.client.IItemDecorator;
 import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class DurabilityDecorator implements IItemDecorator {
     private static @Nullable UnitDurabilityFormatter FORMATTER;
@@ -60,13 +62,27 @@ public final class DurabilityDecorator implements IItemDecorator {
 
             final var maxDamage = stack.getMaxDamage();
             final var damage = stack.getDamageValue();
-            final var damaged = (maxDamage - damage) * (unbreaking + 1);
+            final var remaining = maxDamage - damage;
+            var damaged = BigDecimal.valueOf((long) remaining * (unbreaking + 1));
+            final var unitSystem = Durability777.CONFIG.unitSystem.get();
+            if (unitSystem == UnitSystem.PERCENTAGE) damaged = BigDecimal.valueOf(remaining)
+                .divide(BigDecimal.valueOf(maxDamage), 20, RoundingMode.HALF_UP);
+
             if (FORMATTER == null) FORMATTER = new UnitDurabilityFormatter(Durability777.CONFIG.format());
-            final var text = FORMATTER.format(new BigDecimal(damaged));
+            final var text = FORMATTER.format(damaged, unitSystem);
             final var width = font.width(text);
             final var x = (xOffset + 8) * 2 + 1 + width / 2 - width;
             final var y = (yOffset * 2) + 18;
-            final var color = stack.getBarColor() | 0xFF000000;
+            var color = stack.getBarColor() | 0xFF000000;
+            if (Durability777.CONFIG.enabled.getAsBoolean()) {
+                final var colour = Durability777.CONFIG.color();
+                final var scaled = (long) remaining * 100;
+                if (scaled > maxDamage * 60L) color = colour.safe() | 0xFF000000;
+                else if (scaled > maxDamage * 30L) color = colour.caution() | 0xFF000000;
+                else if (scaled > maxDamage * 10L) color = colour.warning() | 0xFF000000;
+                else color = colour.danger() | 0xFF000000;
+            }
+
             graphics.pose().pushMatrix();
             graphics.pose().scale(0.5f, 0.5f);
             graphics.text(font, text, x, y, color, true);

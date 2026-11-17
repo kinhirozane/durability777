@@ -214,7 +214,7 @@ publishMods {
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         repository = "kinhirozane/durability777"
-        commitish = "master"
+        commitish = providers.environmentVariable("GITHUB_REF_NAME")
         tagName = "v${project.version}"
     }
 }

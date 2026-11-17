@@ -45,15 +45,15 @@ public abstract class MixinKeyboardHandler {
             final var oldUnitSystem = Durability777.CONFIG.unitSystem.get();
             final var newUnitSystem = oldUnitSystem.clockwise();
             Durability777.CONFIG.unitSystem.set(newUnitSystem);
-            Durability777.CONFIG_SPEC.save();
+            Durability777.CONFIG.unitSystem.save();
             if (Minecraft.getInstance().player != null) {
                 final var message = Component.literal("");
-                message.append(Component.translatable("message." + Durability777.NAMESPACE + ".toggle_unit_system")
-                    .withStyle(ChatFormatting.GREEN));
+                message.append(Component.translatable("message." + Durability777.NAMESPACE + ".switch_unit_system")
+                    .withStyle(ChatFormatting.GRAY));
 
-                final var id = oldUnitSystem.identifier().replace(":", ".");
+                final var id = newUnitSystem.identifier().replace(":", ".");
                 message.append(Component.translatable("unit_system." + Durability777.NAMESPACE + "." + id)
-                    .withStyle(ChatFormatting.BLUE));
+                    .withStyle(ChatFormatting.GOLD));
 
                 Minecraft.getInstance().player.sendOverlayMessage(message);
             }

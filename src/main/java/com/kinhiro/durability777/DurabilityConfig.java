@@ -40,6 +40,11 @@ public final class DurabilityConfig {
     public final ModConfigSpec.ConfigValue<String> positiveSuffix;
     public final ModConfigSpec.ConfigValue<String> negativePrefix;
     public final ModConfigSpec.ConfigValue<String> negativeSuffix;
+    public final ModConfigSpec.BooleanValue enabled;
+    public final ModConfigSpec.IntValue safe;
+    public final ModConfigSpec.IntValue caution;
+    public final ModConfigSpec.IntValue warning;
+    public final ModConfigSpec.IntValue danger;
 
     DurabilityConfig(final ModConfigSpec.Builder builder) {
         unitSystem = builder.comment(
@@ -48,10 +53,12 @@ public final class DurabilityConfig {
                 " Allowed values:",
                 " - \"CHINESE_MYRIAD\": Chinese myriad-based units (万, 亿, 兆, 京).",
                 " - \"METRIC_PREFIX\": Metric prefixes (k, M, G, T).",
+                " - \"PERCENTAGE\": Pencentage sufix (%).",
                 " - \"SHORT_SCALE\": Short-scale abbreviations (K, M, B, T).",
                 " Additional unit systems may be provided by other mods.")
             .defineEnum("unitSystem", UnitSystem.SHORT_SCALE);
 
+        builder.push("format").comment(" The durability value display format.");
         roundingMode = builder.comment(
                 " Rounding mode used when formatting decimal numbers.",
                 " Default: DOWN",
@@ -119,6 +126,25 @@ public final class DurabilityConfig {
                 " Default: \"\""
             )
             .define("negativeSuffix", "");
+
+        builder.pop();
+        builder.push("color").comment(
+            " RGB colors used for the durability bar risk levels.",
+            " Values must be TOML hexadecimal integers prefixed with '0x'.",
+            " Only 24-bit RGB values (0x000000–0xFFFFFF) are accepted.",
+            " Default values:",
+            " - enabled: false",
+            " - safe: 0x22C55E",
+            " - caution: 0xFDE047",
+            " - warning: 0xF58220",
+            " - danger: 0xE5243B");
+
+        enabled = builder.define("enabled", false);
+        safe = builder.defineInRange("safe", 0x22C55E, 0, 0xFFFFFF);
+        caution = builder.defineInRange("caution", 0xFDE047, 0, 0xFFFFFF);
+        warning = builder.defineInRange("warning", 0xF58220, 0, 0xFFFFFF);
+        danger = builder.defineInRange("danger", 0xE5243B, 0, 0xFFFFFF);
+        builder.pop();
     }
 
     public DecimalFormat format() {
@@ -134,6 +160,10 @@ public final class DurabilityConfig {
             negativePrefix.get(),
             negativeSuffix.get()
         );
+    }
+
+    public TextColor color() {
+        return new TextColor(safe.getAsInt(), caution.getAsInt(), warning.getAsInt(), danger.getAsInt());
     }
 
     private static boolean character(final Object value) {
@@ -152,5 +182,8 @@ public final class DurabilityConfig {
         String negativePrefix,
         String negativeSuffix
     ) {
+    }
+
+    public record TextColor(int safe, int caution, int warning, int danger) {
     }
 }

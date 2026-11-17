@@ -44,4 +44,8 @@ public interface NumericalUnit {
     default DecimalUnit min() {
         return units()[units().length - 1];
     }
+
+    default DecimalUnit fallback() {
+        return DEFUALT;
+    }
 }

@@ -28,10 +28,11 @@ public final class MetricPrefix implements NumericalUnit {
     public static final DecimalUnit MEGA = new DecimalUnit(NumericalUnit.decimal(6), "M");
     public static final DecimalUnit GIGA = new DecimalUnit(NumericalUnit.decimal(9), "G");
     public static final DecimalUnit TERA = new DecimalUnit(NumericalUnit.decimal(12), "T");
+    private static final DecimalUnit[] UNITS = {KILO, MEGA, GIGA, TERA};
 
     @Override
     public DecimalUnit[] units() {
-        return new DecimalUnit[]{KILO, MEGA, GIGA, TERA};
+        return UNITS;
     }
 
     @Override

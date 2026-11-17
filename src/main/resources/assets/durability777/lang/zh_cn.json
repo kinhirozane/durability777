@@ -1,7 +1,8 @@
 {
-    "key.durability777.toggle_unit_system": "切换单位系统",
-    "message.durability777.toggle_unit_system": "切换单位系统到",
+    "key.durability777.cycle_unit_system": "循环切换单位系统",
+    "message.durability777.switch_unit_system": "已将单位系统切换为",
     "unit_system.durability777.chinese_myriad": "中国万进制",
-    "unit_system.durability777.metric_prefix": "公制前缀（国际单位制）",
+    "unit_system.durability777.metric_prefix": "公制前缀",
+    "unit_system.durability777.percentage": "百分比",
     "unit_system.durability777.short_scale": "短级差制"
 }

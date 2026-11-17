@@ -28,10 +28,11 @@ public final class ChineseMyriad implements NumericalUnit {
     public static final DecimalUnit YI = new DecimalUnit(NumericalUnit.decimal(8), "亿");
     public static final DecimalUnit ZHAO = new DecimalUnit(NumericalUnit.decimal(12), "兆");
     public static final DecimalUnit JING = new DecimalUnit(NumericalUnit.decimal(16), "京");
+    private static final DecimalUnit[] UNITS = {WAN, YI, ZHAO, JING};
 
     @Override
     public DecimalUnit[] units() {
-        return new DecimalUnit[]{WAN, YI, ZHAO, JING};
+        return UNITS;
     }
 
     @Override

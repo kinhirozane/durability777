@@ -33,6 +33,7 @@ import java.util.function.Supplier;
 public enum UnitSystem implements IExtensibleEnum {
     CHINESE_MYRIAD("chinese_myriad", ChineseMyriad::new),
     METRIC_PREFIX("metric_prefix", MetricPrefix::new),
+    PERCENTAGE("percentage", Percentage::new),
     SHORT_SCALE("short_scale", ShortScale::new);
 
     public static ExtensionInfo getExtensionInfo() {
@@ -77,5 +78,9 @@ public enum UnitSystem implements IExtensibleEnum {
 
     public DecimalUnit min() {
         return unitSupplier.get().min();
+    }
+
+    public DecimalUnit fallback() {
+        return unitSupplier.get().fallback();
     }
 }

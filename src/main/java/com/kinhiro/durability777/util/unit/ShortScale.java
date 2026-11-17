@@ -28,10 +28,11 @@ public final class ShortScale implements NumericalUnit {
     public static final DecimalUnit MILLION = new DecimalUnit(NumericalUnit.decimal(6), "M");
     public static final DecimalUnit BILLION = new DecimalUnit(NumericalUnit.decimal(9), "B");
     public static final DecimalUnit TRILLION = new DecimalUnit(NumericalUnit.decimal(12), "T");
+    private static final DecimalUnit[] UNITS = {THOUSAND, MILLION, BILLION, TRILLION};
 
     @Override
     public DecimalUnit[] units() {
-        return new DecimalUnit[]{THOUSAND, MILLION, BILLION, TRILLION};
+        return UNITS;
     }
 
     @Override
