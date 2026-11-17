@@ -194,11 +194,12 @@ publishMods {
     type = ReleaseType.STABLE
     displayName = "${providers.gradleProperty("mod.name").get()} v${project.version}"
     modLoaders.add("neoforge")
+    val supportedVersion = providers.gradleProperty("supported.versions").get().split(",")
 
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         projectId = "1806753"
-        minecraftVersions.add(minecraftVersion)
+        minecraftVersions.addAll(supportedVersion)
         javaVersions.add(JavaVersion.VERSION_25)
         client = true
         server = false
@@ -207,7 +208,7 @@ publishMods {
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "2WaD6H1v"
-        minecraftVersions.add(minecraftVersion)
+        minecraftVersions.addAll(supportedVersion)
         environment = ModrinthEnvironment.CLIENT_ONLY
     }
 
